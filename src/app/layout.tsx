@@ -17,8 +17,8 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${banglaFont.className}`}>
-      <body className="min-h-full flex flex-col">
-        <header>
+      <body className="min-h-full flex flex-col transition-all duration-300 relative">
+        <header className="sticky top-0 z-50">
           <nav>
             <Navbar></Navbar>
             <MarqueeSection></MarqueeSection>

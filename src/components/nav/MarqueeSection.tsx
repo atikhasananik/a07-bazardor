@@ -7,7 +7,7 @@ const MarqueeSection = async () => {
   const marqueeData = await getAllProducts();
 
   return (
-    <Marquee speed={70}>
+    <Marquee className="bg-[#f9fbf9]" pauseOnHover={true} speed={100}>
       {marqueeData.map((product) => {
         return (
           <div

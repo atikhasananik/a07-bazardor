@@ -7,8 +7,7 @@ export default function Home() {
   return (
     <div className="container mx-auto">
       <HeroContent></HeroContent>
-      
-        <PriceUpSection></PriceUpSection>
+      <PriceUpSection></PriceUpSection>
       <PriceDownSection></PriceDownSection>
       <AllCards></AllCards>
     </div>
