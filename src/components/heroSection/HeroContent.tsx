@@ -6,7 +6,7 @@ const HeroContent = () => {
   const date = getDate();
   return (
     <div>
-      <div className="w-full max-w-7xl mx-auto p-4">
+      <div className="w-full  p-4">
         <div className="bg-[#f6f9f6] border border-[#e8efe8] rounded-3xl p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden">
           {/* Left Content Section */}
           <div className="flex-1 space-y-4 z-10">

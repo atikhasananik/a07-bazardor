@@ -4,9 +4,6 @@ interface ICategoryDataProps {
   categoryData: ICategory[];
 }
 const Categories = async ({ categoryData }: ICategoryDataProps) => {
-  // Active indicator set as per design
-
-  console.log(categoryData);
   return (
     <>
       <div className="max-w-7xl mx-auto px-6 mt-1 flex items-center justify-start space-x-8 overflow-x-auto no-scrollbar">

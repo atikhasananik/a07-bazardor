@@ -9,11 +9,11 @@ export default async function Navbar() {
   const date = getDate()
 
   return (
-    <header className="w-full bg-[#f9fbf9] border-b border-gray-100 font-sans">
+    <header className="w-full  bg-[#f9fbf9] border-b border-gray-100 font-sans">
       {/* Top Header Row */}
-      <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
+      <div className=" px-6 py-3 container mx-auto flex items-center justify-between">
         {/* Brand / Logo Section */}
-        <div className="flex items-center gap-3">
+        <div className="flex w-full items-center gap-3">
           <div className="w-12 h-12 bg-[#0c8a43] rounded-2xl flex items-center justify-center text-white shadow-sm">
             <ShoppingCart className="w-6 h-6 stroke-[2.2]" />
           </div>
