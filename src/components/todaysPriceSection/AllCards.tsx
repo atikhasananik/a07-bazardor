@@ -1,7 +1,7 @@
 import React from "react";
-import { FaSortDown } from "react-icons/fa";
-import ProductCard from "../common/ProductCard";
+
 import { getAllProducts } from "@/utils/fetchData";
+import ProductsCard from "../category/ProductsCard";
 
 const AllCards = async () => {
   const productData = await getAllProducts();
@@ -13,9 +13,7 @@ const AllCards = async () => {
         <p className="text-gray-500">{`মোট ${productData.length}টি পণ্য দেখানো হচ্ছে`}</p>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-        {productData.map((product) => {
-          return <ProductCard key={product.id} product={product}></ProductCard>;
-        })}
+        <ProductsCard categoryData={productData}></ProductsCard>
       </div>
     </div>
   );

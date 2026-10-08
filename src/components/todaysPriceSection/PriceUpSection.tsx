@@ -1,7 +1,7 @@
 import React from "react";
 import { FaSortUp } from "react-icons/fa";
-import ProductCard from "../common/ProductCard";
 import { getAllProducts } from "@/utils/fetchData";
+import ProductsCard from "../category/ProductsCard";
 
 const PriceUpSection = async () => {
   const productData = await getAllProducts();
@@ -25,9 +25,7 @@ const PriceUpSection = async () => {
       </h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-        {mostPriceUpProduct.map((product) => {
-          return <ProductCard key={product.id} product={product}></ProductCard>;
-        })}
+       <ProductsCard categoryData={mostPriceUpProduct}></ProductsCard>
       </div>
     </div>
   );
