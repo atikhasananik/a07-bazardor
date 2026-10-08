@@ -9,7 +9,7 @@ interface ProductCardProps {
 
 export default function ProductCard({product}: ProductCardProps) {
   return (
-    <div className="w-full  bg-white rounded-3xl p-5 border border-gray-100 shadow-[0_2px_10px_rgba(0,0,0,0.02)] font-sans">
+    <div className="w-full hover:border hover:border-green-500 hover:shadow-xl transition-all duration-300 bg-white rounded-3xl p-5 border border-gray-100 shadow-[0_2px_10px_rgba(0,0,0,0.02)] font-sans">
       {/* Header Row: Icon + Title & Unit */}
       <div className="flex items-center gap-3.5 mb-5">
         {/* Rounded Icon Box */}
