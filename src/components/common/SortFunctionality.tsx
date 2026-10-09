@@ -22,8 +22,7 @@ const SortFunctionality = () => {
     }
   };
 
-  console.log(sortValueCat);
-  console.log(pathname)
+ 
   return (
     <div>
       <select
