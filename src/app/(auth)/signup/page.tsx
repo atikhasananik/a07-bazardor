@@ -1,14 +1,17 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import Link from 'next/link';
+import React, { useState } from "react";
+import Link from "next/link";
+import { signUp } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
 
 export default function RegisterPage() {
+  const Router = useRouter();
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
+    name: "",
+    email: "",
+    password: "",
+   
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -18,14 +21,33 @@ export default function RegisterPage() {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Registration logic here
+    const formData = new FormData(e.currentTarget);
+    const data: Record<string, string> = {};
+
+    formData.forEach((value, key) => {
+      data[key] = value.toString();
+    });
+
+    const { data: resData, error } = await signUp.email({
+      name: data.name,
+      email: data.email,
+      password: data.password,
+      callbackURL: "/",
+    });
+
+    if(error){
+      console.error(error||'অ্যাকাউন্ট তৈরি করতে সমস্যা হয়েছে')
+    }
+
+    if (resData) {
+      Router.push("/");
+    }
   };
 
   return (
     <div className="w-full mb-10 bg-[#f3f6f3] flex flex-col justify-center items-center p-4 font-sans text-gray-800">
-      
       {/* Header Section */}
       <div className="text-center mb-8 space-y-1.5">
         <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight">
@@ -39,10 +61,12 @@ export default function RegisterPage() {
       {/* Main Form Card */}
       <div className="w-full max-w-md bg-[#f8faf8] border border-[#eaefea] rounded-3xl p-6 md:p-8 shadow-xs">
         <form onSubmit={handleSubmit} className="space-y-4">
-          
           {/* Name Field */}
           <div className="space-y-1.5">
-            <label htmlFor="name" className="block text-xs font-semibold text-gray-700">
+            <label
+              htmlFor="name"
+              className="block text-xs font-semibold text-gray-700"
+            >
               নাম
             </label>
             <input
@@ -58,7 +82,10 @@ export default function RegisterPage() {
 
           {/* Email Field */}
           <div className="space-y-1.5">
-            <label htmlFor="email" className="block text-xs font-semibold text-gray-700">
+            <label
+              htmlFor="email"
+              className="block text-xs font-semibold text-gray-700"
+            >
               ইমেইল
             </label>
             <input
@@ -74,7 +101,10 @@ export default function RegisterPage() {
 
           {/* Password Field */}
           <div className="space-y-1.5">
-            <label htmlFor="password" className="block text-xs font-semibold text-gray-700">
+            <label
+              htmlFor="password"
+              className="block text-xs font-semibold text-gray-700"
+            >
               পাসওয়ার্ড
             </label>
             <input
@@ -83,22 +113,6 @@ export default function RegisterPage() {
               name="password"
               placeholder="কমপক্ষে ৮ অক্ষর"
               value={formData.password}
-              onChange={handleChange}
-              className="w-full bg-[#fafdfa] border border-[#e2e8e2] rounded-xl px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#0c8a43]/30 focus:border-[#0c8a43] transition-all"
-            />
-          </div>
-
-          {/* Confirm Password Field */}
-          <div className="space-y-1.5">
-            <label htmlFor="confirmPassword" className="block text-xs font-semibold text-gray-700">
-              পাসওয়ার্ড নিশ্চিত করুন
-            </label>
-            <input
-              type="password"
-              id="confirmPassword"
-              name="confirmPassword"
-              placeholder="আবার লিখুন"
-              value={formData.confirmPassword}
               onChange={handleChange}
               className="w-full bg-[#fafdfa] border border-[#e2e8e2] rounded-xl px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#0c8a43]/30 focus:border-[#0c8a43] transition-all"
             />
@@ -153,7 +167,11 @@ export default function RegisterPage() {
           {/* GitHub */}
           <button className="flex items-center justify-center gap-2 border border-[#e2e8e2] bg-white hover:bg-gray-50 py-2.5 px-3 rounded-xl text-xs font-semibold text-gray-800 transition-colors shadow-2xs">
             <svg className="w-4 h-4 fill-gray-900" viewBox="0 0 24 24">
-              <path fillRule="evenodd" clipRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+              <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+              />
             </svg>
             <span>GitHub দিয়ে চালিয়ে যান</span>
           </button>
@@ -161,8 +179,11 @@ export default function RegisterPage() {
 
         {/* Existing Account Footer */}
         <div className="mt-6 text-center text-xs text-gray-500 font-medium">
-          অ্যাকাউন্ট আছে?{' '}
-          <Link href="/signin" className="text-[#0c8a43] hover:underline font-bold">
+          অ্যাকাউন্ট আছে?{" "}
+          <Link
+            href="/signin"
+            className="text-[#0c8a43] hover:underline font-bold"
+          >
             সাইন ইন করুন
           </Link>
         </div>
@@ -170,11 +191,13 @@ export default function RegisterPage() {
 
       {/* Back to Home Link */}
       <div className="mt-6">
-        <Link href="/" className="text-xs text-gray-500 hover:text-gray-800 font-medium transition-colors">
+        <Link
+          href="/"
+          className="text-xs text-gray-500 hover:text-gray-800 font-medium transition-colors"
+        >
           ← হোম পেজে ফিরে যান
         </Link>
       </div>
-
     </div>
   );
 }

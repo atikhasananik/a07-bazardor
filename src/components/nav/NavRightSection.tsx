@@ -1,12 +1,18 @@
+"use client"
+
+import { signOut, useSession } from "@/lib/auth-client";
 import { ChevronDown, Undo2, UserRound } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 const NavRightSection = () => {
+  const { data: session } =  useSession()
+  console.log(session)
+  console.log("rerender")
   return (
     <>
-      {false ? (
+      {session ? (
         <div className="relative px-3">
           <details>
             <summary className="flex gap-3">
@@ -21,7 +27,7 @@ const NavRightSection = () => {
                   />
                 </div>
                 <span className="text-sm font-semibold text-gray-800">
-                  Rezwan
+                  {session?.user.name}
                 </span>
                 <ChevronDown className="w-3.5 h-3.5 text-gray-500 ml-0.5" />
               </div>
@@ -29,7 +35,7 @@ const NavRightSection = () => {
             <ul className="rounded-lg p-4 px-6 w-60 absolute space-y-2  shadow-sm border border-gray-200 bg-white text-black text-sm -bottom-35 right-0 z-100">
               <li className="text-gray-400 flex flex-col gap-0 ">
                 <div className="text-xl font-semibold leading-4">name</div>
-                <div>email@gmail.com</div>
+                <div>{session?.user.email}</div>
               </li>
               <li>
                 <Link
@@ -44,11 +50,12 @@ const NavRightSection = () => {
                 </Link>
               </li>
               <li className="text-red-500">
-                <Link href={"/"} className="flex gap-2">
+                <Link onClick={() => signOut()
+                } href={"/"} className="flex gap-2">
                   <span className="rotate-x-180 text-[8px] ">
                     <Undo2 size={15} />
                   </span>{" "}
-                  <span>সাইন আউট</span>
+                  <span >সাইন আউট</span>
                 </Link>
               </li>
             </ul>
