@@ -1,9 +1,8 @@
-import React from "react";
 import ProductCard from "../common/ProductCard";
 import { IProduct } from "@/types/type";
 
 interface IProductsCardProps {
-categoryData: IProduct[];
+  categoryData: IProduct[];
 }
 
 const ProductsCard = ({ categoryData }: IProductsCardProps) => {

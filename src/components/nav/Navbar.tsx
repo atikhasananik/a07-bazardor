@@ -1,9 +1,10 @@
 import Image from "next/image";
-import { ShoppingCart, ChevronDown } from "lucide-react";
+import { ShoppingCart, ChevronDown,  UserRound } from "lucide-react";
 import Categories from "./Categories";
 import { getCategoryData } from "@/utils/fetchData";
 import { getDate } from "@/utils/utilsFuntion";
 import Link from "next/link";
+import NavRightSection from "./NavRightSection";
 
 export default async function Navbar() {
   let categoryData;
@@ -38,19 +39,7 @@ export default async function Navbar() {
           </div>
 
           {/* User Profile Section */}
-          <div className="flex items-center gap-2.5 cursor-pointer hover:opacity-90 transition-opacity">
-            <div className="w-10 h-10 rounded-xl overflow-hidden bg-gray-200 relative">
-              <Image
-                width={50}
-                height={50}
-                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=150"
-                alt="Rezwan Profile"
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <span className="text-sm font-semibold text-gray-800">Rezwan</span>
-            <ChevronDown className="w-3.5 h-3.5 text-gray-500 ml-0.5" />
-          </div>
+         <NavRightSection></NavRightSection>
         </div>
 
         {/* Bottom Category Bar */}

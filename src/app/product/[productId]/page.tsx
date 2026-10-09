@@ -1,3 +1,4 @@
+import ProductBreadcrumbs from "@/components/product/ProductBreadcrumbs";
 import { getAllProducts, getSingleProductData } from "@/utils/fetchData";
 import { notFound } from "next/navigation";
 
@@ -60,6 +61,7 @@ export default async function ProductDetailView({
   return (
     <div className="w-full min-h-screen bg-[#f3f6f3] p-4 md:p-10 font-sans text-gray-800">
       <div className="max-w-6xl mx-auto space-y-6">
+        <ProductBreadcrumbs productData={productData}></ProductBreadcrumbs>
         {/* Top Product Summary Banner */}
         <div className="bg-[#f8faf8] border border-[#eaefea] rounded-3xl p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-xs">
           {/* Left: Product Info */}
@@ -77,15 +79,15 @@ export default async function ProductDetailView({
               <p className=" text-gray-600 font-medium mt-2">
                 গতকালকের তুলনায় আজ দাম{" "}
                 <span className="font-bold text-gray-900">
-                  {`${productData.change.dir === "up" ? "বেড়েছে" : "কমসে"}`}.{" "}
-                  {productData.yesterday - productData.today} টাকা
+                  {`${productData.change.dir === "up" ? "বেড়েছে" : "কমসে"}`}{" "}
+                  {productData.change.pct}%
                 </span>
               </p>
             </div>
           </div>
 
           {/* Right: Today's Price Badge */}
-          <div className="bg-[#eef3ee] rounded-2xl p-4 px-6 text-right self-stretch md:self-auto flex flex-col justify-center min-w-35">
+          <div className="bg-[#eef3ee] rounded-2xl p-4 px-6 text-right self-stretch md:self-auto flex flex-col items-center justify-center min-w-35">
             <span className=" text-gray-500 font-medium">আজকের দাম</span>
             <span className="text-2xl md:text-3xl font-black text-gray-900 leading-tight">
               {productData.today}
@@ -93,8 +95,15 @@ export default async function ProductDetailView({
             <span className=" text-gray-600 font-medium">
               টাকা / {productData.unit}
             </span>
-            <span className=" font-bold text-[#dc2626] mt-1 flex items-center justify-end gap-0.5">
-              ▲ {productData.change.pct}%
+            <span
+              className={`${productData.change.dir === "up" ? "text-[#dc2626]" : "text-green-500"} font-bold  mt-1 flex items-center justify-end gap-0.5`}
+            >
+              <span
+                className={`${productData.change.dir === "up" ? "" : "rotate-180"}`}
+              >
+                ▲
+              </span>{" "}
+              {productData.change.pct}%
             </span>
           </div>
         </div>
