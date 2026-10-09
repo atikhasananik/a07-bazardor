@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { signIn, signUp } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
+import { RunErrorToast, RunSuccessToast } from "@/utils/toastFunction";
 
 export default function RegisterPage() {
   const Router = useRouter();
@@ -22,6 +23,7 @@ export default function RegisterPage() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     const formData = new FormData(e.currentTarget);
     const data: Record<string, string> = {};
 
@@ -36,12 +38,13 @@ export default function RegisterPage() {
       callbackURL: "/",
     });
 
-    if (error) {
-      console.error(error || "অ্যাকাউন্ট তৈরি করতে সমস্যা হয়েছে");
-    }
-
     if (resData) {
       Router.push("/");
+      RunSuccessToast("অ্যাকাউন্ট সফলভাবে তৈরি হয়েছে।");
+    }
+
+    if (error) {
+      RunErrorToast("অ্যাকাউন্ট তৈরি করতে সমস্যা হয়েছে");
     }
   };
 
@@ -52,6 +55,7 @@ export default function RegisterPage() {
 
     if (!data) {
       console.error("Google দিয়ে Sign In করতে সমস্যা হয়েছে");
+      RunErrorToast("Google দিয়ে Sign In করতে সমস্যা হয়েছে।");
     }
   };
 
@@ -62,6 +66,7 @@ export default function RegisterPage() {
 
     if (!data) {
       console.error("Github দিয়ে Sign In করতে সমস্যা হয়েছে");
+      RunErrorToast("Github দিয়ে Sign In করতে সমস্যা হয়েছে");
     }
   };
 

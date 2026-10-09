@@ -5,6 +5,7 @@ import Navbar from "@/components/nav/Navbar";
 import MarqueeSection from "@/components/nav/MarqueeSection";
 import Footer from "@/components/footer/Footer";
 import ContextAPIProvider from "@/components/contextAPI/ContextAPI";
+import { ToastContainer } from "react-toastify";
 
 const banglaFont = Noto_Sans_Bengali({
   subsets: ["latin", "bengali"],
@@ -32,6 +33,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             <Footer></Footer>
           </footer>
         </ContextAPIProvider>
+        <ToastContainer />
       </body>
     </html>
   );

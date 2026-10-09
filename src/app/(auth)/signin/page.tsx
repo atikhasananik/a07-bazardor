@@ -3,6 +3,8 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { signIn } from "@/lib/auth-client";
+import { toast } from "react-toastify";
+import { RunErrorToast, RunSuccessToast } from "@/utils/toastFunction";
 
 export default function LoginPage() {
   const [formData, setFormData] = useState({
@@ -34,9 +36,8 @@ export default function LoginPage() {
     });
 
     if (error) {
-      console.error(error || "অ্যাকাউন্ট Sign In করতে সমস্যা হয়েছে");
+      RunErrorToast("অ্যাকাউন্ট Sign In করতে সমস্যা হয়েছে।");
     }
-    console.log(resData);
   };
 
   const handleGoogleBtn = async () => {
@@ -46,6 +47,7 @@ export default function LoginPage() {
 
     if (!data) {
       console.error("Google দিয়ে Sign In করতে সমস্যা হয়েছে");
+      RunErrorToast("Google দিয়ে Sign In করতে সমস্যা হয়েছে।");
     }
   };
 
@@ -56,6 +58,7 @@ export default function LoginPage() {
 
     if (!data) {
       console.error("Github দিয়ে Sign In করতে সমস্যা হয়েছে");
+      RunErrorToast("Github দিয়ে Sign In করতে সমস্যা হয়েছে");
     }
   };
 

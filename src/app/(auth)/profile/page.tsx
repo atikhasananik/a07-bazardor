@@ -5,10 +5,12 @@ import { LogOut } from "lucide-react";
 import Image from "next/image";
 import { signOut, updateUser, useSession } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
+import { RunSuccessToast } from "@/utils/toastFunction";
 
 export default function ProfilePage() {
   const [name, setName] = useState("");
-  const Router = useRouter()
+  const Router = useRouter();
 
   const handleUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -21,12 +23,23 @@ export default function ProfilePage() {
     await updateUser({
       name,
     });
-    setName("")
+    toast.success("নাম সফলভাবে হালনাগাদ হয়েছে।", {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+    setName("");
   };
 
   const handleSignOut = () => {
     signOut();
-    Router.push("/")
+    RunSuccessToast("সফলভাবে সাইন আউট হয়েছে।")
+    Router.push("/");
   };
 
   const { data: session } = useSession();
@@ -58,7 +71,9 @@ export default function ProfilePage() {
                   height={60}
                 />
               ) : (
-                <div className="font-semibold text-2xl flex items-center justify-center w-full h-full text-green-700">{session?.user?.name[0] as string}</div>
+                <div className="font-semibold text-2xl flex items-center justify-center w-full h-full text-green-700">
+                  {session?.user?.name[0] as string}
+                </div>
               )}
             </div>
             <div>

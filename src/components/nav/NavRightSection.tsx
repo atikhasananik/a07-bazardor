@@ -1,13 +1,14 @@
 "use client";
 
 import { signOut, useSession } from "@/lib/auth-client";
+import { RunSuccessToast } from "@/utils/toastFunction";
 import { ChevronDown, Undo2, UserRound } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 const NavRightSection = () => {
-  const { data: session } = useSession();
+  const { data: session, isPending } = useSession();
   const nameLength = session?.user.name.split(" ").length as number;
   let showName: string;
   if (nameLength > 3) {
@@ -16,6 +17,12 @@ const NavRightSection = () => {
     showName = session?.user.name as string;
   }
 
+  if (isPending) {
+    return <span className="loading loading-dots loading-xl"></span>;
+  }
+if(session?.user){
+  RunSuccessToast("অ্যাকাউন্ট সফলভাবে Sign In হয়েছে।");
+}
   return (
     <>
       {session ? (
@@ -33,7 +40,9 @@ const NavRightSection = () => {
                       height={60}
                     />
                   ) : (
-                    <div className="font-semibold text-2xl flex items-center justify-center w-full h-full text-green-700">{session?.user?.name[0] as string}</div>
+                    <div className="font-semibold text-2xl flex items-center justify-center w-full h-full text-green-700">
+                      {session?.user?.name[0] as string}
+                    </div>
                   )}
                 </div>
                 <span className="text-sm font-semibold text-gray-800">
@@ -63,7 +72,10 @@ const NavRightSection = () => {
               </li>
               <li className="text-red-500">
                 <Link
-                  onClick={() => signOut()}
+                  onClick={() => {
+                    signOut();
+                    RunSuccessToast("সফলভাবে সাইন আউট হয়েছে।");
+                  }}
                   href={"/"}
                   className="flex gap-2"
                 >
