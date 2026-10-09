@@ -68,7 +68,7 @@ const NavRightSection = () => {
                   <span>আমার প্রোফাইল</span>
                 </Link>
               </li>
-              <li className="text-red-500">
+              <li className="text-red-500"> 
                 <Link
                   onClick={() => {
                     signOut();
