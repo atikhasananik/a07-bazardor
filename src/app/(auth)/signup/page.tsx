@@ -2,11 +2,12 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { signIn, signUp } from "@/lib/auth-client";
+import { signIn, signUp, useSession } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import { RunErrorToast, RunSuccessToast } from "@/utils/toastFunction";
 
 export default function RegisterPage() {
+  const { data: session } = useSession();
   const Router = useRouter();
   const [formData, setFormData] = useState({
     name: "",
@@ -53,6 +54,10 @@ export default function RegisterPage() {
       provider: "google",
     });
 
+    if (data) {
+      RunSuccessToast("Google দিয়ে Sign In সফলভাবে হয়েছে।");
+    }
+
     if (!data) {
       console.error("Google দিয়ে Sign In করতে সমস্যা হয়েছে");
       RunErrorToast("Google দিয়ে Sign In করতে সমস্যা হয়েছে।");
@@ -63,6 +68,10 @@ export default function RegisterPage() {
     const data = await signIn.social({
       provider: "github",
     });
+
+    if (data) {
+      RunSuccessToast("Github দিয়ে Sign In সফলভাবে হয়েছে।");
+    }
 
     if (!data) {
       console.error("Github দিয়ে Sign In করতে সমস্যা হয়েছে");

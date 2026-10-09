@@ -2,11 +2,12 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { signIn } from "@/lib/auth-client";
+import { signIn, useSession } from "@/lib/auth-client";
 import { toast } from "react-toastify";
 import { RunErrorToast, RunSuccessToast } from "@/utils/toastFunction";
 
 export default function LoginPage() {
+  const { data: session } = useSession();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -34,7 +35,9 @@ export default function LoginPage() {
       rememberMe: true,
       callbackURL: "/",
     });
-
+    if (resData) {
+      RunSuccessToast("অ্যাকাউন্ট সফলভাবে Sign In হয়েছে।");
+    }
     if (error) {
       RunErrorToast("অ্যাকাউন্ট Sign In করতে সমস্যা হয়েছে।");
     }
@@ -44,7 +47,9 @@ export default function LoginPage() {
     const data = await signIn.social({
       provider: "google",
     });
-
+    if (data) {
+      RunSuccessToast("Google দিয়ে Sign In সফলভাবে হয়েছে।");
+    }
     if (!data) {
       console.error("Google দিয়ে Sign In করতে সমস্যা হয়েছে");
       RunErrorToast("Google দিয়ে Sign In করতে সমস্যা হয়েছে।");
@@ -55,7 +60,9 @@ export default function LoginPage() {
     const data = await signIn.social({
       provider: "github",
     });
-
+    if (data) {
+      RunSuccessToast("Github দিয়ে Sign In সফলভাবে হয়েছে।");
+    }
     if (!data) {
       console.error("Github দিয়ে Sign In করতে সমস্যা হয়েছে");
       RunErrorToast("Github দিয়ে Sign In করতে সমস্যা হয়েছে");

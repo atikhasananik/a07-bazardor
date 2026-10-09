@@ -20,9 +20,7 @@ const NavRightSection = () => {
   if (isPending) {
     return <span className="loading loading-dots loading-xl"></span>;
   }
-if(session?.user){
-  RunSuccessToast("অ্যাকাউন্ট সফলভাবে Sign In হয়েছে।");
-}
+
   return (
     <>
       {session ? (
