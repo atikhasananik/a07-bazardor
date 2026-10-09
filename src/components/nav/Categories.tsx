@@ -8,7 +8,7 @@ const Categories = async ({ categoryData }: ICategoryDataProps) => {
   return (
     <div className="container mx-auto relative">
       <div
-        className={`" grid  my-1 gap-2 lg:max-w-3xl space-x-1 items-center justify-start  overflow-x-auto no-scrollbar max-sm:grid-cols-4 grid-cols-${categoryData.length} `}
+        className={`" grid  my-1 gap-2 lg:max-w-3xl space-x-1 items-center justify-start  overflow-x-auto no-scrollbar max-sm:grid-cols-4 grid-cols-8 `}
       >
         {categoryData.map((cat) => {
           return (
