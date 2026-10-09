@@ -7,7 +7,7 @@ const AllCards = async () => {
   const productData = await getAllProducts();
 
   return (
-    <div id="all-products" className="mx-4 my-20 scroll-m-45">
+    <div id="সব-পণ্য" className="mx-4 my-20 scroll-m-45">
       <div className="mb-4">
         <h1 className="f text-3xl font-semibold ">সব পণ্য</h1>
         <p className="text-gray-500">{`মোট ${productData.length}টি পণ্য দেখানো হচ্ছে`}</p>

@@ -1,4 +1,5 @@
 import { ICategory, IProduct } from "@/types/type";
+import { getProxiedPluginState } from "next/dist/build/build-context";
 
 // get category data
 export const getCategoryData = async () => {
@@ -24,8 +25,17 @@ export const getAllProducts = async () => {
 
 export const getSingleCategoryData = async (categoryId: string) => {
   const res = await fetch(
-    `https://api.api-store.workers.dev/api/bazardor/products?category=${categoryId}`,
+    `https://api.api-store.workers.dev/api/bazardor/products?category=${categoryId}`,{cache:"force-cache"}
   );
   const data = (await res.json()) as IProduct[];
+  return data;
+};
+
+// get single product details data
+export const getSingleProductData = async (productId: number) => {
+  const res = await fetch(
+    `https://api.api-store.workers.dev/api/bazardor/products/${productId}`
+  );
+  const data = (await res.json()) as IProduct;
   return data;
 };

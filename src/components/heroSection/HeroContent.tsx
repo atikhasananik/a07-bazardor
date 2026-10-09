@@ -28,9 +28,11 @@ const HeroContent = () => {
 
             {/* CTA Button */}
             <div className="pt-2">
-              <button className="bg-[#0c8a43] hover:bg-[#0a7538] text-white text-sm font-semibold px-6 py-2.5 rounded-xl transition-all shadow-sm active:scale-[0.98]">
-                <a className="w-full h-full" href="#all-products">সব পণ্য দেখুন</a>
-              </button>
+              <a className="w-full h-full " href="#সব-পণ্য">
+                <button className="bg-[#0c8a43] hover:cursor-pointer hover:bg-[#0a7538] text-white text-sm font-semibold px-6 py-2.5 rounded-xl transition-all shadow-sm active:scale-[0.98]">
+                  সব পণ্য দেখুন
+                </button>
+              </a>
             </div>
           </div>
 

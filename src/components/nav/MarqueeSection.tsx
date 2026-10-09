@@ -5,9 +5,10 @@ import { FaSortDown, FaSortUp } from "react-icons/fa";
 
 const MarqueeSection = async () => {
   const marqueeData = await getAllProducts();
+  
 
   return (
-    <Marquee className="bg-[#f9fbf9]" pauseOnHover={true} speed={100}>
+    <Marquee className="bg-[#f9fbf9] text-black" pauseOnHover={true} speed={100}>
       {marqueeData.map((product) => {
         return (
           <div

@@ -3,10 +3,19 @@ import { ShoppingCart, ChevronDown } from "lucide-react";
 import Categories from "./Categories";
 import { getCategoryData } from "@/utils/fetchData";
 import { getDate } from "@/utils/utilsFuntion";
+import Link from "next/link";
 
 export default async function Navbar() {
-  const categoryData = await getCategoryData();
+  let categoryData;
+  try {
+    categoryData = await getCategoryData();
+  } catch (error) {
+    console.log(error);
+  }
   const date = getDate();
+  if (!categoryData) {
+    return null;
+  }
 
   return (
     <div>
@@ -16,7 +25,9 @@ export default async function Navbar() {
           {/* Brand / Logo Section */}
           <div className="flex w-full items-center gap-3">
             <div className="w-12 h-12 bg-[#0c8a43] rounded-2xl flex items-center justify-center text-white shadow-sm">
-              <ShoppingCart className="w-6 h-6 stroke-[2.2]" />
+              <Link href={"/"}>
+                <ShoppingCart className="w-6 h-6 stroke-[2.2]" />
+              </Link>
             </div>
             <div>
               <h1 className="text-xl font-extrabold text-gray-900 leading-tight tracking-wide">

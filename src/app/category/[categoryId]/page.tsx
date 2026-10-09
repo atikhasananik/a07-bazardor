@@ -1,30 +1,36 @@
 import ProductsCard from "@/components/category/ProductsCard";
-import { IProduct } from "@/types/type";
 import { getCategoryData, getSingleCategoryData } from "@/utils/fetchData";
 import { notFound } from "next/navigation";
 
-interface IRiceCategorySectionProps {
+interface ICategorySectionProps {
   params: Promise<{ categoryId: string }>;
 }
 
-export default async function RiceCategorySection({
+export default async function CategorySection({
   params,
-}: IRiceCategorySectionProps) {
+}: ICategorySectionProps) {
   const { categoryId } = await params;
+  let singleCategory;
 
-  const categoryID = await getCategoryData();
+  let categoryID;
+  try {
+    categoryID = await getCategoryData();
+  } catch (error) {
+    console.log(error);
+    notFound();
+  }
 
   const exiest = categoryID.find((category) => {
     return category.id === categoryId;
   });
 
-  let singleCategory: IProduct[] | null = null;
-  if (exiest) {
+  try {
     singleCategory = await getSingleCategoryData(categoryId);
-  } else {
+  } catch (error) {
+    console.log(error);
     notFound();
   }
-  console.log();
+
   return (
     <div
       className="w-full min-h-screen bg-[#f3f6f3] p-6 md:p-12 font-sans"
@@ -34,11 +40,11 @@ export default async function RiceCategorySection({
         {/* Top Header Card */}
         <div className="bg-[#f8faf8] border border-[#eaefea] rounded-2xl p-6 md:p-8 flex items-center gap-4 shadow-sm">
           <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center text-3xl shadow-xs flex-0">
-            {exiest.icon}
+            {exiest?.icon}
           </div>
           <div>
             <h1 className="text-2xl md:text-3xl font-extrabold text-[#1a201c] tracking-tight">
-              {exiest.nameBn}
+              {exiest?.nameBn}
             </h1>
             <p className="text-sm text-gray-500 font-medium mt-1">
               {singleCategory ? singleCategory.length : null}টি পণ্যের আজকের দাম
