@@ -1,25 +1,39 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import { LogOut } from 'lucide-react';
-import Image from 'next/image';
+import React, { useState } from "react";
+import { LogOut } from "lucide-react";
+import Image from "next/image";
+import { signOut, updateUser, useSession } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
 
 export default function ProfilePage() {
-  const [name, setName] = useState('');
+  const [name, setName] = useState("");
+  const Router = useRouter()
 
-  const handleUpdate = (e: React.FormEvent) => {
+  const handleUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Handle update logic here
+    const formData = new FormData(e.currentTarget);
+    const data: Record<string, string> = {};
+    // Convert FormData to plain object
+    formData.forEach((value, key) => {
+      data[key] = value.toString();
+    });
+    await updateUser({
+      name,
+    });
+    setName("")
   };
 
   const handleSignOut = () => {
-    // Handle sign out logic here
+    signOut();
+    Router.push("/")
   };
+
+  const { data: session } = useSession();
 
   return (
     <div className="w-full min-h-screen bg-[#f3f6f3] p-6 md:p-12 font-sans text-gray-800">
       <div className="max-w-4xl mx-auto space-y-6">
-        
         {/* Page Title & Subtitle */}
         <div className="space-y-1">
           <h1 className="text-2xl md:text-3xl font-extrabold text-gray-900 tracking-tight">
@@ -35,20 +49,24 @@ export default function ProfilePage() {
           {/* User Info */}
           <div className="flex items-center gap-4">
             <div className="w-16 h-16 rounded-2xl overflow-hidden bg-gray-200 flex-shrink-0">
-              <Image
-                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=150"
-                alt="Rezwan Ahmed"
-                className="w-full h-full object-cover"
-                width={60}
-                height={60}
-              />
+              {session?.user?.image ? (
+                <Image
+                  src={session?.user?.image as string}
+                  alt={`${session?.user.name as string}s img`}
+                  className="w-full h-full object-cover"
+                  width={60}
+                  height={60}
+                />
+              ) : (
+                <div className="font-semibold text-2xl flex items-center justify-center w-full h-full text-green-700">{session?.user?.name[0] as string}</div>
+              )}
             </div>
             <div>
               <h2 className="text-lg md:text-xl font-bold text-gray-900 leading-tight">
-                Rezwan Ahmed
+                {session?.user?.name}
               </h2>
               <p className="text-xs md:text-sm text-gray-500 font-medium mt-0.5">
-                rezwanahmed@gmail.com
+                {session?.user?.email}
               </p>
             </div>
           </div>
@@ -65,21 +83,23 @@ export default function ProfilePage() {
 
         {/* Info Update Form Card */}
         <div className="bg-[#f8faf8] border border-[#eaefea] rounded-3xl p-6 md:p-8 shadow-xs">
-          <h3 className="text-base font-bold text-gray-900 mb-6">
-            তথ্য
-          </h3>
+          <h3 className="text-base font-bold text-gray-900 mb-6">তথ্য</h3>
 
           <form onSubmit={handleUpdate} className="space-y-5 max-w-full">
             <div className="space-y-2">
-              <label htmlFor="name" className="block text-xs font-semibold text-gray-700">
+              <label
+                htmlFor="name"
+                className="block text-xs font-semibold text-gray-700"
+              >
                 নাম
               </label>
               <input
                 type="text"
                 id="name"
                 value={name}
+                placeholder="আপনার নাম ?"
                 onChange={(e) => setName(e.target.value)}
-                className="w-full bg-[#fafdfa] border border-[#e2e8e2] rounded-xl px-4 py-3 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#0c8a43]/30 focus:border-[#0c8a43] transition-all"
+                className="w-full bg-[#fafdfa] border  border-[#e2e8e2] rounded-xl px-4 py-3 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#0c8a43]/30 focus:border-[#0c8a43] transition-all"
               />
             </div>
 
@@ -91,7 +111,6 @@ export default function ProfilePage() {
             </button>
           </form>
         </div>
-
       </div>
     </div>
   );

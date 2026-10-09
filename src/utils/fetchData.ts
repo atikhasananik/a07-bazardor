@@ -14,8 +14,8 @@ export const getCategoryData = async () => {
 // get All product
 export const getAllProducts = async () => {
   const res = await fetch(
-    "https://api.api-store.workers.dev/api/bazardor/products",
-    { next: { revalidate: 60 * 60 } },
+    "https://api.api-store.workers.dev/api/bazardor/products",{next:{revalidate:60}}
+    
   );
   const data = (await res.json()) as IProduct[];
   return data;

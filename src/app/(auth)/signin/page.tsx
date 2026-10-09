@@ -39,6 +39,26 @@ export default function LoginPage() {
     console.log(resData);
   };
 
+  const handleGoogleBtn = async () => {
+    const data = await signIn.social({
+      provider: "google",
+    });
+
+    if (!data) {
+      console.error("Google দিয়ে Sign In করতে সমস্যা হয়েছে");
+    }
+  };
+
+  const handleGithubBtn = async () => {
+    const data = await signIn.social({
+      provider: "github",
+    });
+
+    if (!data) {
+      console.error("Github দিয়ে Sign In করতে সমস্যা হয়েছে");
+    }
+  };
+
   return (
     <div className="w-full items-center min-h-[80vh] mb-10 bg-[#f3f6f3] flex flex-col justify-center  p-4 font-sans text-gray-800">
       {/* Header Section */}
@@ -66,6 +86,7 @@ export default function LoginPage() {
               type="email"
               id="email"
               name="email"
+            
               placeholder="you@example.com"
               value={formData.email}
               onChange={handleChange}
@@ -116,7 +137,10 @@ export default function LoginPage() {
         {/* Social Logins */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {/* Google */}
-          <button className="flex items-center justify-center gap-2 border border-[#e2e8e2] bg-white hover:bg-gray-50 py-2.5 px-3 rounded-xl text-xs font-semibold text-gray-800 transition-colors shadow-2xs">
+          <button
+            onClick={() => handleGoogleBtn()}
+            className="flex items-center justify-center gap-2 border border-[#e2e8e2] bg-white hover:bg-gray-50 py-2.5 px-3 rounded-xl text-xs font-semibold text-gray-800 transition-colors shadow-2xs"
+          >
             <svg className="w-4 h-4" viewBox="0 0 24 24">
               <path
                 fill="#4285F4"
@@ -139,7 +163,10 @@ export default function LoginPage() {
           </button>
 
           {/* GitHub */}
-          <button className="flex items-center justify-center gap-2 border border-[#e2e8e2] bg-white hover:bg-gray-50 py-2.5 px-3 rounded-xl text-xs font-semibold text-gray-800 transition-colors shadow-2xs">
+          <button
+            onClick={() => handleGithubBtn()}
+            className="flex items-center justify-center gap-2 border border-[#e2e8e2] bg-white hover:bg-gray-50 py-2.5 px-3 rounded-xl text-xs font-semibold text-gray-800 transition-colors shadow-2xs"
+          >
             <svg className="w-4 h-4 fill-gray-900" viewBox="0 0 24 24">
               <path
                 fillRule="evenodd"

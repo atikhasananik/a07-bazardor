@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { signUp } from "@/lib/auth-client";
+import { signIn, signUp } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 
 export default function RegisterPage() {
@@ -11,7 +11,6 @@ export default function RegisterPage() {
     name: "",
     email: "",
     password: "",
-   
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,12 +36,32 @@ export default function RegisterPage() {
       callbackURL: "/",
     });
 
-    if(error){
-      console.error(error||'অ্যাকাউন্ট তৈরি করতে সমস্যা হয়েছে')
+    if (error) {
+      console.error(error || "অ্যাকাউন্ট তৈরি করতে সমস্যা হয়েছে");
     }
 
     if (resData) {
       Router.push("/");
+    }
+  };
+
+  const handleGoogleBtn = async () => {
+    const data = await signIn.social({
+      provider: "google",
+    });
+
+    if (!data) {
+      console.error("Google দিয়ে Sign In করতে সমস্যা হয়েছে");
+    }
+  };
+
+  const handleGithubBtn = async () => {
+    const data = await signIn.social({
+      provider: "github",
+    });
+
+    if (!data) {
+      console.error("Github দিয়ে Sign In করতে সমস্যা হয়েছে");
     }
   };
 
@@ -73,7 +92,7 @@ export default function RegisterPage() {
               type="text"
               id="name"
               name="name"
-              placeholder="যেমন: রহিম উদ্দিন"
+              placeholder="যেমন: Atik Hasan Anik"
               value={formData.name}
               onChange={handleChange}
               className="w-full bg-[#fafdfa] border border-[#e2e8e2] rounded-xl px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#0c8a43]/30 focus:border-[#0c8a43] transition-all"
@@ -142,7 +161,10 @@ export default function RegisterPage() {
         {/* Social Logins */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {/* Google */}
-          <button className="flex items-center justify-center gap-2 border border-[#e2e8e2] bg-white hover:bg-gray-50 py-2.5 px-3 rounded-xl text-xs font-semibold text-gray-800 transition-colors shadow-2xs">
+          <button
+            onClick={() => handleGoogleBtn()}
+            className="flex items-center justify-center gap-2 border border-[#e2e8e2] bg-white hover:bg-gray-50 py-2.5 px-3 rounded-xl text-xs font-semibold text-gray-800 transition-colors shadow-2xs"
+          >
             <svg className="w-4 h-4" viewBox="0 0 24 24">
               <path
                 fill="#4285F4"
@@ -165,7 +187,10 @@ export default function RegisterPage() {
           </button>
 
           {/* GitHub */}
-          <button className="flex items-center justify-center gap-2 border border-[#e2e8e2] bg-white hover:bg-gray-50 py-2.5 px-3 rounded-xl text-xs font-semibold text-gray-800 transition-colors shadow-2xs">
+          <button
+            onClick={() => handleGithubBtn()}
+            className="flex items-center justify-center gap-2 border border-[#e2e8e2] bg-white hover:bg-gray-50 py-2.5 px-3 rounded-xl text-xs font-semibold text-gray-800 transition-colors shadow-2xs"
+          >
             <svg className="w-4 h-4 fill-gray-900" viewBox="0 0 24 24">
               <path
                 fillRule="evenodd"
