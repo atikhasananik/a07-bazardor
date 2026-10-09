@@ -1,6 +1,4 @@
-import ProductsCard from "@/components/category/ProductsCard";
 import ProductsCatagoryCom from "@/components/category/ProductsCatagoryCom";
-import SortFunctionality from "@/components/common/SortFunctionality";
 import { getCategoryData, getSingleCategoryData } from "@/utils/fetchData";
 import { notFound } from "next/navigation";
 

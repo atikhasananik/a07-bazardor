@@ -2,12 +2,10 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { signIn, useSession } from "@/lib/auth-client";
-import { toast } from "react-toastify";
+import { signIn } from "@/lib/auth-client";
 import { RunErrorToast, RunSuccessToast } from "@/utils/toastFunction";
 
 export default function LoginPage() {
-  const { data: session } = useSession();
   const [formData, setFormData] = useState({
     email: "",
     password: "",

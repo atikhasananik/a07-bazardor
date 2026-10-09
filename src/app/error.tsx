@@ -21,7 +21,7 @@ export default function Error({ error, reset }: ErrorProps) {
       {/* Header Section */}
       <div className="text-center mb-8 space-y-1.5">
         <div className="inline-flex items-center justify-center w-16 h-16 bg-red-100 text-red-600 rounded-2xl mb-2 shadow-xs">
-          <AlertTriangle className="w-8 h-8 stroke-[2]" />
+          <AlertTriangle className="w-8 h-8 stroke-2" />
         </div>
         <h1 className="text-2xl md:text-3xl font-extrabold text-gray-900 tracking-tight">
           কোনো একটি সমস্যা হয়েছে!

@@ -1,10 +1,9 @@
-import Image from "next/image";
-import { ShoppingCart, ChevronDown,  UserRound } from "lucide-react";
 import Categories from "./Categories";
 import { getCategoryData } from "@/utils/fetchData";
 import { getDate } from "@/utils/utilsFuntion";
 import Link from "next/link";
 import NavRightSection from "./NavRightSection";
+import { ShoppingCart } from "lucide-react";
 
 export default async function Navbar() {
   let categoryData;

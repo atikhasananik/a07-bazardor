@@ -61,7 +61,7 @@ export default function ProfilePage() {
         <div className="bg-[#f8faf8] border border-[#eaefea] rounded-3xl p-6 md:p-8 flex items-center justify-between shadow-xs">
           {/* User Info */}
           <div className="flex items-center gap-4">
-            <div className="w-16 h-16 rounded-2xl overflow-hidden bg-gray-200 flex-shrink-0">
+            <div className="w-16 h-16 rounded-2xl overflow-hidden bg-gray-200 flex-0">
               {session?.user?.image ? (
                 <Image
                   src={session?.user?.image as string}
@@ -91,7 +91,7 @@ export default function ProfilePage() {
             onClick={handleSignOut}
             className="flex items-center gap-2 border border-[#f87171] bg-white text-[#dc2626] hover:bg-red-50 text-xs md:text-sm font-medium px-4 py-2 rounded-xl transition-colors shadow-2xs"
           >
-            <LogOut className="w-4 h-4 stroke-[2]" />
+            <LogOut className="w-4 h-4 stroke-2" />
             <span>সাইন আউট</span>
           </button>
         </div>

@@ -2,12 +2,11 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { signIn, signUp, useSession } from "@/lib/auth-client";
+import { signIn, signUp } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import { RunErrorToast, RunSuccessToast } from "@/utils/toastFunction";
 
 export default function RegisterPage() {
-  const { data: session } = useSession();
   const Router = useRouter();
   const [formData, setFormData] = useState({
     name: "",

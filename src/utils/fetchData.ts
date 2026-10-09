@@ -1,5 +1,4 @@
 import { ICategory, IProduct } from "@/types/type";
-import { getProxiedPluginState } from "next/dist/build/build-context";
 
 // get category data
 export const getCategoryData = async () => {
