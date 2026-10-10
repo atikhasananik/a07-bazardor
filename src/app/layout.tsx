@@ -22,7 +22,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="en" className={`${banglaFont.className}`}>
       <body className="min-h-full flex flex-col transition-all duration-300 relative">
         <ContextAPIProvider>
-          <header className="sticky top-0 z-50">
+          <header className="sm:sticky top-0 z-50">
             <nav>
               <Navbar></Navbar>
               <MarqueeSection></MarqueeSection>

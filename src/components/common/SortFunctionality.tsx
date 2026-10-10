@@ -24,13 +24,13 @@ const SortFunctionality = () => {
 
  
   return (
-    <div>
+    <div className="">
       <select
         value={pathname==="/"?sortValue:sortValueCat}
         onChange={(e) => {
           handleClick(e.target.value as SortValue);
         }}
-        className="select bg-white shadow-lg border border-gray-200 w-50"
+        className="select bg-white shadow-lg border border-gray-200 w-50 max-sm:w-35"
       >
         <option value="ডিফল্ট">ডিফল্ট</option>
         <option value="দাম: কম থেকে বেশি">দাম: কম থেকে বেশি</option>

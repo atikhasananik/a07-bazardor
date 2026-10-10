@@ -2,12 +2,14 @@
 
 import { signOut, useSession } from "@/lib/auth-client";
 import { RunSuccessToast } from "@/utils/toastFunction";
-import { ChevronDown, Undo2, UserRound } from "lucide-react";
+import { boolean } from "better-auth";
+import { ChevronDown, TextAlignJustify, Undo2, UserRound } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 
 const NavRightSection = () => {
+  const [menuClick, setMenuClick] = useState<boolean>(false);
   const { data: session, isPending } = useSession();
   const nameLength = session?.user.name.split(" ").length as number;
   let showName: string;
@@ -18,16 +20,20 @@ const NavRightSection = () => {
   }
 
   if (isPending) {
-    return <span className="loading loading-dots loading-xl"></span>;
+    return <span className="loading bg-black loading-dots loading-xl"></span>;
   }
+
+  const handleMenuClick = () => {
+    setMenuClick(!menuClick);
+  };
 
   return (
     <>
       {session ? (
         <div className="relative md:w-100 px-3">
           <details>
-            <summary className="flex gap-3 justify-end">
-              <div className="flex items-center gap-2.5 cursor-pointer hover:opacity-90 transition-opacity">
+            <summary className="flex gap-3  justify-end">
+              <div className="flex items-center gap-2.5 fcursor-pointer hover:opacity-90 transition-opacity">
                 <div className="w-10 h-10 rounded-xl overflow-hidden bg-gray-200 relative">
                   {session?.user?.image ? (
                     <Image
@@ -43,7 +49,7 @@ const NavRightSection = () => {
                     </div>
                   )}
                 </div>
-                <span className="text-sm font-semibold text-gray-800">
+                <span className="text-sm max-sm:hidden  font-semibold text-gray-800">
                   {showName}
                 </span>
                 <ChevronDown className="w-3.5 h-3.5 text-gray-500 ml-0.5" />
@@ -68,7 +74,7 @@ const NavRightSection = () => {
                   <span>আমার প্রোফাইল</span>
                 </Link>
               </li>
-              <li className="text-red-500"> 
+              <li className="text-red-500">
                 <Link
                   onClick={() => {
                     signOut();
@@ -87,21 +93,30 @@ const NavRightSection = () => {
           </details>
         </div>
       ) : (
-        <div className="flex w-50 items-center gap-4">
-          <Link
-            href="/signin"
-            className="text-sm font-bold text-gray-900 hover:text-[#0c8a43] transition-colors"
+        <>
+          <div onClick={handleMenuClick} className="text-black">
+            <TextAlignJustify />
+          </div>
+          <div
+            className={`flex ${menuClick || "max-sm:hidden"}  flex-col  sm:flex-row max-sm:bg-white max-sm:border border-gray-400 max-sm:shadow-2xl py-2 px-2 rounded-xl max-sm:absolute right-2 max-sm:w-40 top-14 z-100 w-50 items-center gap-4`}
           >
-            <span>সাইন ইন</span>
-          </Link>
-          {/* Sign Up Button */}
-          <Link
-            href="/signup"
-            className="bg-[#0c8a43] hover:bg-[#0a7538] text-white text-sm font-bold px-5 py-3 rounded-xl shadow-md transition-all active:scale-[0.98]"
-          >
-            <span>সাইন আপ</span>
-          </Link>
-        </div>
+            <Link
+              onClick={() => setMenuClick(false)}
+              href="/signin"
+              className="text-sm font-bold text-gray-900 hover:text-[#0c8a43] transition-colors"
+            >
+              <span>সাইন ইন</span>
+            </Link>
+            {/* Sign Up Button */}
+            <Link
+              onClick={() => setMenuClick(false)}
+              href="/signup"
+              className="bg-[#0c8a43] hover:bg-[#0a7538] text-white text-sm font-bold px-5 py-3 rounded-xl shadow-md transition-all active:scale-[0.98]"
+            >
+              <span>সাইন আপ</span>
+            </Link>
+          </div>
+        </>
       )}
     </>
   );

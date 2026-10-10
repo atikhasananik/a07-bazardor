@@ -38,11 +38,12 @@ export default function ProfilePage() {
 
   const handleSignOut = () => {
     signOut();
-    RunSuccessToast("সফলভাবে সাইন আউট হয়েছে।")
+    RunSuccessToast("সফলভাবে সাইন আউট হয়েছে।");
     Router.push("/");
   };
 
   const { data: session } = useSession();
+  const img = session?.user?.image;
 
   return (
     <div className="w-full min-h-screen bg-[#f3f6f3] p-6 md:p-12 font-sans text-gray-800">
@@ -58,10 +59,10 @@ export default function ProfilePage() {
         </div>
 
         {/* Top Profile Card */}
-        <div className="bg-[#f8faf8] border border-[#eaefea] rounded-3xl p-6 md:p-8 flex items-center justify-between shadow-xs">
+        <div className="bg-[#f8faf8] border  border-[#eaefea] rounded-3xl p-6 md:p-8 flex max-sm:flex-col items-center justify-between shadow-xs ">
           {/* User Info */}
           <div className="flex items-center gap-4">
-            <div className="w-16 h-16 rounded-2xl overflow-hidden bg-gray-200 flex-0">
+            <div className="w-16 h-16 rounded-2xl overflow-hidden ">
               {session?.user?.image ? (
                 <Image
                   src={session?.user?.image as string}
