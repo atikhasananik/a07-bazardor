@@ -61,3 +61,6 @@ Configure OAuth applications with the local app as their development callback or
 | `npm run build` | Build the production app |
 | `npm run start` | Serve the production build |
 | `npm run lint` | Run ESLint |
+
+
+## Live Demo : <a href = "https://a07-bazardor.vercel.app/">BazaDor - click here </a>
