@@ -3,7 +3,13 @@
 import { signOut, useSession } from "@/lib/auth-client";
 import { RunSuccessToast } from "@/utils/toastFunction";
 import { boolean } from "better-auth";
-import { ChevronDown, TextAlignJustify, Undo2, UserRound } from "lucide-react";
+import {
+  ChevronDown,
+  TextAlignJustify,
+  Undo2,
+  UserRound,
+  X,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
@@ -94,11 +100,11 @@ const NavRightSection = () => {
         </div>
       ) : (
         <>
-          <div onClick={handleMenuClick} className="text-black">
-            <TextAlignJustify />
+          <div onClick={handleMenuClick} className="text-black sm:hidden">
+            {menuClick ? <X /> : <TextAlignJustify />}
           </div>
           <div
-            className={`flex ${menuClick || "max-sm:hidden"}  flex-col  sm:flex-row max-sm:bg-white max-sm:border border-gray-400 max-sm:shadow-2xl py-2 px-2 rounded-xl max-sm:absolute right-2 max-sm:w-40 top-14 z-100 w-50 items-center gap-4`}
+            className={`flex ${menuClick || "max-sm:hidden"} max-sm:flex-col  flex-row max-sm:bg-white max-sm:border border-gray-400 max-sm:shadow-2xl py-2 px-2 rounded-xl max-sm:absolute right-2 max-sm:w-40 top-14 z-100 sm:w-60 justify-end items-center gap-4`}
           >
             <Link
               onClick={() => setMenuClick(false)}
